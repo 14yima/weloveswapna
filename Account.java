@@ -85,4 +85,23 @@ public class Account {
 			}
 		}
 	}
+	
+	/**
+	 * Will add a review to the designated restaurant
+	 * @param resturant name of the restaurant want to leave review for
+	 * @param review what will be added as a review
+	 */
+	public void writeReview(String restaurant, String review) //currently if the restaurant1 doesn't already exist it will create a file for it
+	{
+		try {
+			BufferedWriter add = new BufferedWriter(new FileWriter(restaurant + ".txt", true));		//write to file named after the restaurant
+			add.newLine();
+			add.write(username + ": " + review); 	//format username: rest of review
+			add.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error in writing to file");
+			e.printStackTrace();
+		}
+	}
 }
