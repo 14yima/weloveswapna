@@ -7,16 +7,23 @@ import java.io.IOException;
 
 public class Account {
 	private String line;
-	private boolean exists;
+	private boolean exists,success,created;
+	private String username;
+	
+	public boolean getExists()
+	{
+		return exists;
+	}
 	
 	/**
 	 * login user if the account exists and the password is correct
 	 * @param usr username
 	 * @param pas password
 	 */
-	public void login(String usr, String pas)
+	public boolean login(String usr, String pas)
 	{
 		exists=false;
+		success=false;
 		try(BufferedReader br = new BufferedReader(new FileReader("accounts.txt")))
 		{
 			while ((line = br.readLine()) != null) {	//reads one line at a time
@@ -26,7 +33,9 @@ public class Account {
 			    	exists=true;
 			    	if(words[1].equals(pas))			//checks second word in line(password)
 			    	{
+			    		username=usr;					//set the class vairable equal to the name
 			    		System.out.println("You have sucesfully loged in");	//latter replace with actually login in the account
+			    		success=true;
 			    		break;	//exit the while loop since it already found what it was looking for
 			    	}
 			    	else System.out.println("Incorrect password");
@@ -43,15 +52,17 @@ public class Account {
 		}
 		if(!exists)
 			System.out.println("Username does not exist");
+		return success;
 	}
 	/**
 	 * Creates a new account if one with the same username does not already exist
 	 * @param usr desired username
 	 * @param pas desired password
 	 */
-	public void createAccount(String usr, String pas)
+	public Boolean createAccount(String usr, String pas) //this method should probably be in a different class but for now it is here
 	{
 		exists=false;
+		created=false;
 		try(BufferedReader br = new BufferedReader(new FileReader("accounts.txt")))	//checks and make sures username does not already exist
 		{
 			while ((line = br.readLine()) != null) {	//reads one line at a time
@@ -78,12 +89,15 @@ public class Account {
 				add.newLine();				//creates new line to end of file
 				add.write(usr + " " + pas); //writes username and password to end of file with a space between the two
 				add.close();
+				System.out.println("Account successfully created");
+				created=true;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				System.out.println("Error in writing to file");
 				e.printStackTrace();
 			}
 		}
+		return created;
 	}
 	
 	/**
