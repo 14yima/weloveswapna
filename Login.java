@@ -1,3 +1,5 @@
+package cse2102Project01;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -14,6 +16,7 @@ public class Login extends JDialog {
     private boolean succeeded;
     private Account account = new Account();
  
+    //constructor
     public Login(Frame parent) {
 
         super(parent, "Login", true);
@@ -103,4 +106,3 @@ public class Login extends JDialog {
         return succeeded;
     }
 }
-

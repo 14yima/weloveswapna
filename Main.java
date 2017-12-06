@@ -1,3 +1,5 @@
+package cse2102Project01;
+
 
 import java.awt.*;
 import java.awt.event.*;
@@ -8,7 +10,18 @@ public class Main {
         final JFrame frame = new JFrame("Login&Create Test");
         final JButton btnCreate = new JButton("Click to Create an account");
         final JButton btnLogin = new JButton("Click to login");
-     
+        final JButton tfSearch = new JButton("Click here to search for restaurants");
+        
+        tfSearch.addActionListener(
+                new ActionListener(){
+                    public void actionPerformed(ActionEvent e) {
+                        SearchRestaurants searchResult = new SearchRestaurants(frame);
+                        searchResult.setVisible(true);
+                        /*if(searchResult.isSucceeded()){
+                            ;
+                        }*/
+                    }
+                });
  
         btnLogin.addActionListener(
                 new ActionListener(){
@@ -35,10 +48,11 @@ public class Main {
                 });
  
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300, 100);
+        frame.setSize(300, 300);
         frame.setLayout(new FlowLayout());
         frame.getContentPane().add(btnLogin);
         frame.getContentPane().add(btnCreate);
+        frame.getContentPane().add(tfSearch);
         frame.setVisible(true);
     }
 }

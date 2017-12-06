@@ -1,3 +1,5 @@
+package cse2102Project01;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -33,8 +35,8 @@ public class Account {
 			    	exists=true;
 			    	if(words[1].equals(pas))			//checks second word in line(password)
 			    	{
-			    		username=usr;					//set the class vairable equal to the name
-			    		System.out.println("You have sucesfully loged in");	//latter replace with actually login in the account
+			    		username=usr;					//set the class variable equal to the name
+			    		System.out.println("You have succesfully logged in");	//latter replace with actually login in the account
 			    		success=true;
 			    		break;	//exit the while loop since it already found what it was looking for
 			    	}
@@ -63,7 +65,7 @@ public class Account {
 	{
 		exists=false;
 		created=false;
-		try(BufferedReader br = new BufferedReader(new FileReader("accounts.txt")))	//checks and make sures username does not already exist
+		try(BufferedReader br = new BufferedReader(new FileReader("accounts.txt")))	//checks and makes sure username does not already exist
 		{
 			while ((line = br.readLine()) != null) {	//reads one line at a time
 			    String[] words = line.split(" ");		//puts each word in an element in array words. defines different words by an empty space " "
@@ -105,17 +107,54 @@ public class Account {
 	 * @param resturant name of the restaurant want to leave review for
 	 * @param review what will be added as a review
 	 */
-	public void writeReview(String restaurant, String review) //currently if the restaurant1 doesn't already exist it will create a file for it
+	public void writeReview(String restaurant, String review) 
 	{
-		try {
+		//arah
+		
+		
+		try(BufferedReader br = new BufferedReader(new FileReader("restaurantList.txt")))
+		{
+			while ((line = br.readLine()) != null) {	
+			    String[] words = line.split(":");		
+			    if(words[0].equals(restaurant))				
+			    {
+			    	try {
+						BufferedWriter add = new BufferedWriter(new FileWriter(restaurant + ".txt", true));		
+						add.newLine();
+						add.write(username + ": " + review + "###"); 	
+						add.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						System.out.println("Error in writing to file");
+						e.printStackTrace();
+					}
+			    }
+			    else { 
+
+			    	System.out.println("Restaurant doesn't exist");
+			    	break;
+			    	}
+			    }
+			} catch (FileNotFoundException e) {
+				System.out.println("Error file not found");
+				e.printStackTrace();
+			} catch (IOException e) {
+				System.out.println("Error");
+				e.printStackTrace();
+			}
+		
+		//arah
+		
+		/*
+		 try {
 			BufferedWriter add = new BufferedWriter(new FileWriter(restaurant + ".txt", true));		//write to file named after the restaurant
 			add.newLine();
-			add.write(username + ": " + review); 	//format username: rest of review
+			add.write(username + ": " + review + "###"); 	//format username: rest of review
 			add.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Error in writing to file");
 			e.printStackTrace();
-		}
+		} */
 	}
 }
