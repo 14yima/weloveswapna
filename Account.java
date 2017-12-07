@@ -11,10 +11,16 @@ public class Account {
 	private String line;
 	private boolean exists,success,created;
 	private String username;
+	private boolean revSuccess;
 	
 	public boolean getExists()
 	{
 		return exists;
+	}
+	
+	public boolean getrevSuccess()
+	{
+		return revSuccess;
 	}
 	
 	/**
@@ -110,7 +116,7 @@ public class Account {
 	public void writeReview(String restaurant, String review) 
 	{
 		//arah
-		
+		revSuccess = false;
 		
 		try(BufferedReader br = new BufferedReader(new FileReader("restaurantList.txt")))
 		{
@@ -123,6 +129,7 @@ public class Account {
 						add.newLine();
 						add.write(username + ": " + review + "###"); 	
 						add.close();
+						revSuccess=true;
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						System.out.println("Error in writing to file");
@@ -132,6 +139,7 @@ public class Account {
 			    else { 
 
 			    	System.out.println("Restaurant doesn't exist");
+			    	revSuccess = false;
 			    	break;
 			    	}
 			    }
