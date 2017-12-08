@@ -1,5 +1,3 @@
-package cse2102Project01;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -19,6 +17,8 @@ public class WriteReview extends JDialog {
 	private JTextField tfResLoc;
 	private JLabel lbResLoc;
 	private boolean revSuccess;
+	public String name;
+	private JTextField rating;
 	
 	public WriteReview(Frame parent) {
 		
@@ -51,6 +51,14 @@ public class WriteReview extends JDialog {
         c.gridy = 1;
         c.gridwidth = 2;
         panel.add(tfResLoc, c);
+        
+        
+        rating = new JTextField(20);
+        c.gridx = 1;
+        c.gridy = 2;
+        c.gridwidth = 2;
+        panel.add(rating, c);
+        
         
 
         textArea = new JTextArea(
@@ -97,7 +105,6 @@ public class WriteReview extends JDialog {
                       BorderLayout.PAGE_START);
         leftPane.add(areaScrollPane,
                       BorderLayout.CENTER);
-
         add(leftPane, BorderLayout.LINE_START);
         add(rightPane, BorderLayout.LINE_END); 
         
@@ -108,7 +115,9 @@ public class WriteReview extends JDialog {
         btnSubmitReview.addActionListener(new ActionListener() {
         	 
             public void actionPerformed(ActionEvent e) {
-                account.writeReview(getResName(), getReview());
+            	System.out.println("Name is : " + getResName());
+            	account.username=name;
+                account.writeReview(getResName(), getReview(), getRating());
                 tfResName.setText("");
                 tfResLoc.setText("");
  
@@ -127,7 +136,9 @@ public class WriteReview extends JDialog {
         
         
         }
-	
+	public String getRating() {
+		return rating.getText().trim();
+	}
 	public String getReview() {
         return textArea.getText().trim(); 
     }
@@ -145,9 +156,7 @@ public class WriteReview extends JDialog {
 	/*private static void createAndShowGUI() {
         JFrame frame = new JFrame("Review");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         frame.add(new WriteReview(frame));
-
         frame.pack();
         frame.setVisible(true);
     }

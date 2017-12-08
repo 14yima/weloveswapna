@@ -1,5 +1,3 @@
-package cse2102Project01;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -10,7 +8,7 @@ import java.io.IOException;
 public class Account {
 	private String line;
 	private boolean exists,success,created;
-	private String username;
+	public String username;
 	private boolean revSuccess;
 	
 	public boolean getExists()
@@ -113,7 +111,10 @@ public class Account {
 	 * @param resturant name of the restaurant want to leave review for
 	 * @param review what will be added as a review
 	 */
-	public void writeReview(String restaurant, String review) 
+	
+
+	
+	public void writeReview(String restaurant, String review, String rating) 
 	{
 		//arah
 		revSuccess = false;
@@ -121,13 +122,13 @@ public class Account {
 		try(BufferedReader br = new BufferedReader(new FileReader("restaurantList.txt")))
 		{
 			while ((line = br.readLine()) != null) {	
-			    String[] words = line.split(":");		
+			    String[] words = line.split(":");	
 			    if(words[0].equals(restaurant))				
 			    {
 			    	try {
 						BufferedWriter add = new BufferedWriter(new FileWriter(restaurant + ".txt", true));		
 						add.newLine();
-						add.write(username + ": " + review + "###"); 	
+						add.write(username + "[" +rating + "]" + ": " + review + ""); 	
 						add.close();
 						revSuccess=true;
 					} catch (IOException e) {
@@ -140,7 +141,6 @@ public class Account {
 
 			    	System.out.println("Restaurant doesn't exist");
 			    	revSuccess = false;
-			    	break;
 			    	}
 			    }
 			} catch (FileNotFoundException e) {

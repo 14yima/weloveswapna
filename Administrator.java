@@ -1,4 +1,3 @@
-package cse2102Project01;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

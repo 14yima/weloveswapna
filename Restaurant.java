@@ -1,4 +1,3 @@
-package cse2102Project01;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,7 +9,7 @@ import java.util.Scanner;
 
 public class Restaurant {
 	
-	public String restaurantName;
+	public String restaurantName="restaurant1";
 	public String town;
 	private String line;
 	public boolean exists;
@@ -48,7 +47,6 @@ public class Restaurant {
 			if(searchResult.isEmpty()) {
 				exists = false;
 			}
-			
 			return exists;
 			
 			
